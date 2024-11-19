@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-export class taskDto {
+export class TaskDto {
     id: string;
     title: string;
     description: string;

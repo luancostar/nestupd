@@ -1,14 +1,26 @@
-import { Injectable } from '@nestjs/common';
-import { taskDto } from './task.dto';
+/* eslint-disable prettier/prettier */
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { TaskDto } from './task.dto';
 
 @Injectable()
-export class TaskService {
+    export class TaskService {
 
-private tasks: taskDto [] = [];
+    private tasks: TaskDto [] = [];
 
-create(task: taskDto){
-    this.tasks.push(task);
-    console.log(this.tasks);
-}
+    create(task: TaskDto){
+        this.tasks.push(task);
+        console.log(this.tasks)
+    }
+
+    findById(id: string): TaskDto {
+        const foundTask = this.tasks.filter( t => t.id === id);
+
+        if (foundTask.length) {
+            return foundTask[0]
+        }
+
+        throw new HttpException(`Task with id ${id} not found`, HttpStatus.NOT_FOUND);
+
+    }
 
 }

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post } from '@nestjs/common';
-import { taskDto } from './task.dto';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { TaskDto } from './task.dto';
 import { TaskService } from './task.service';
 
 @Controller('task')
@@ -9,10 +9,13 @@ export class TaskController {
 
     }
 
-
     @Post()
-    create(@Body() task: taskDto){
+    create(@Body() task: TaskDto){
         this.taskService.create(task)
-       
+    }
+    
+    @Get('/:id')
+    findById(@Param('id') id: string)  {
+        return this.taskService.findById(id)
     }
 }
